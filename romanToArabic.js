@@ -1,7 +1,6 @@
 function arabic (str) {
 
   let sum = 0;
-
   let capStr = str.toUpperCase();
 
   //check if format is valid >>> work in progress
