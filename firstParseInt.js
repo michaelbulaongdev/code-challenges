@@ -34,3 +34,5 @@ console.log(parseFirstInt('No. 10'));
 console.log(parseFirstInt('18.12'));
 console.log(parseFirstInt('Sum: -120'));
 console.log(parseFirstInt('Babylon'));
+
+//A function parseFirstInt that takes a string and returns the first integer present in the string. If the string does not contain an integer, it returns NaN.
