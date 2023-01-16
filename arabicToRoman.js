@@ -1,8 +1,8 @@
 function roman (num) {
   let result = '';
-  let N = parseInt(num);
 
   //check if num is within valid range
+  let N = parseInt(num);
   if (N === 0 || N >= 4000) {
     return 'enter a whole number between 1 and 4000';
   }
