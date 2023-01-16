@@ -70,7 +70,7 @@ console.log(roman(1994));
 console.log(roman(483));
 console.log(roman(3999));
 console.log(roman(4000));
-console.log(roman(0));
+console.log(roman(0.13));
 
 //Write a function roman that converts an Arabic number into a Roman numeral.
 //Example: roman(483) should return 'CDLXXXIII'.
