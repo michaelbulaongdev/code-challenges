@@ -4,54 +4,53 @@
 //points given as coordinates along (x, y) axis where point A is the start and point X is the end.
 
 function leastNumSteps(a1, a2, x1, x2) {
-	let steps = 0;
+  //check if type of inputs are numbers
+  if (
+    typeof a1 !== "number" ||
+    typeof a2 !== "number" ||
+    typeof x1 !== "number" ||
+    typeof x2 !== "number"
+  ) {
+    return `invalid input`;
+  }
 
-	const grid = [
-		[1, 2, 3, 4, 5, 6, 7, 8],
-		[1, 2, 3, 4, 5, 6, 7, 8],
-		[1, 2, 3, 4, 5, 6, 7, 8],
-	];
+  //round down to nearest whole numbers, removing decimals
+  let Ax = Math.floor(a1);
+  let Ay = Math.floor(a2);
+  let Xx = Math.floor(x1);
+  let Xy = Math.floor(x2);
 
-	//check if type of inputs are numbers
-	if (
-		typeof a1 !== 'number' ||
-		typeof a2 !== 'number' ||
-		typeof x1 !== 'number' ||
-		typeof x2 !== 'number'
-	) {
-		return `invalid input`;
-	}
+  //check if source and destination are in the grid
+  let insideGrid = false;
 
-	//round down to nearest whole numbers, removing decimals
-	let Ax = Math.floor(a1);
-	let Ay = Math.floor(a2);
-	let Xx = Math.floor(x1);
-	let Xy = Math.floor(x2);
+  if (Ax >= 1 && Ax <= 8) {
+    if (Ay >= 1 && Ay <= 3) {
+      if (Xx >= 1 && Xx <= 8) {
+        if (Xy >= 1 && Xy <= 3) {
+          insideGrid = true;
+        }
+      }
+    }
+  }
 
-	//check if source and destination are in the grid
-	let insideGrid = false;
+  if (insideGrid === false) {
+    return `input is outside of the grid`;
+  }
 
-	if (Ax >= 1 && Ax <= 8) {
-		if (Ay >= 1 && Ay <= 3) {
-			if (Xx >= 1 && Xx <= 8) {
-				if (Xy >= 1 && Xy <= 3) {
-					insideGrid = true;
-				}
-			}
-		}
-	}
+  //steps logic
+  let steps = 0;
 
-	if (insideGrid === false) {
-		return `input is outside of the grid`;
-	}
+  const grid = [
+    [1, 2, 3, 4, 5, 6, 7, 8],
+    [1, 2, 3, 4, 5, 6, 7, 8],
+    [1, 2, 3, 4, 5, 6, 7, 8],
+  ];
 
-	return `${steps} steps`;
+  return `${steps} steps`;
 }
 
 //for testing:
 //from start pointA(3, 2) to end pointX(8, 1)
 console.log(leastNumSteps(3, 2, 8, 1)); //expected output: 5 steps
-
-console.log(leastNumSteps(2, 2, 9, 4)); //input outside of grid
-
-console.log(leastNumSteps(2, 2, '7', 4)); //invalid input
+console.log(leastNumSteps(2, 2, 9, 4)); //input is outside of the grid
+console.log(leastNumSteps(2, 2, "7", 4)); //invalid input
