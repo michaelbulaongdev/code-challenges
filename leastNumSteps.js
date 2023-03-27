@@ -37,20 +37,31 @@ function leastNumSteps(a1, a2, x1, x2) {
     return `input is outside of the grid`;
   }
 
-  //steps logic
+  //main logic: calculate least steps from startPoint to endPoint
+
   let steps = 0;
 
   const grid = [
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
-    [1, 2, 3, 4, 5, 6, 7, 8],
+    [11, 21, 31, 41, 51, 61, 71, 81],
+    [12, 22, 32, 42, 52, 62, 72, 82],
+    [13, 23, 33, 43, 53, 63, 73, 83],
   ];
+
+  //convert point data to array format grid[rowIndex][colIndex]
+  const startPoint = grid[Ay - 1][Ax - 1];
+  const endPoint = grid[Xy - 1][Xx - 1];
+
+  console.log(`from A(${Ax},${Ay}) to X(${Xx},${Xy})`);
+  console.log(`from grid points ${startPoint} to ${endPoint}`);
+
+  //check position of endpoint relative to startpoint
 
   return `${steps} steps`;
 }
 
-//for testing:
 //from start pointA(3, 2) to end pointX(8, 1)
 console.log(leastNumSteps(3, 2, 8, 1)); //expected output: 5 steps
-console.log(leastNumSteps(2, 2, 9, 4)); //input is outside of the grid
-console.log(leastNumSteps(2, 2, "7", 4)); //invalid input
+
+//validation test
+// console.log(leastNumSteps(2, 2, 9, 4)); //input is outside of the grid
+// console.log(leastNumSteps(2, 2, "7", 4)); //invalid input
