@@ -5,6 +5,101 @@
 //range of Ax and Xx: 1-8
 //range of Ay and Xy: 1-3
 
+//check position of A relative to X
+//update steps counter and position of A
+function move(steps, Ax, Ay, Xx, Xy) {
+	//if X and A are on the same y-axis
+	if (Xx === Ax) {
+		//if X and A are the same
+		if (Xy === Ay) {
+			//do nothing
+		}
+		//if X is directly below A
+		else if (Xy > Ay) {
+			for (let i = Ay - 1; i < Xy - 1; i++) {
+				steps = steps + 1;
+			}
+		}
+		//if X is directly above A
+		else if (Xy < Ay) {
+			if (Ay - Xy === 1) {
+				steps = steps + 3;
+			} else {
+				steps = steps + 2;
+			}
+		}
+		//destination reached
+		Ax = Xx;
+		Ay = Xy;
+	}
+
+	//if X is to the right of A
+	else if (Xx > Ax) {
+		//if same y-axis
+		if (Xy === Ay) {
+			if (Xx - Ax === 1) {
+				steps = steps + 2;
+				Ax = Xx; //destination reached
+			} else {
+				steps = steps + 1;
+				Ax = Ax + 1;
+				if (Ay === 1) {
+					Ay = Ay + 1;
+				} else {
+					Ay = Ay - 1;
+				}
+			}
+		}
+		//if above
+		else if (Xy > Ay) {
+			steps = steps + 1;
+			Ax = Ax + 1;
+			Ay = Ay - 1;
+		}
+		//if below
+		else if (Xy < Ay) {
+			steps = steps + 1;
+			Ax = Ax + 1;
+			Ay = Ay + 1;
+		}
+	}
+
+	//if X is to the left of A
+	else if (Xx < Ax) {
+		//if same y-axis
+		if (Xy === Ay) {
+			if (Ax - Xx === 1) {
+				steps = steps + 2;
+				Ax = Xx; //destination reached
+			} else {
+				steps = steps + 1;
+				Ax = Ax - 1;
+				if (Ay === 1) {
+					Ay = Ay + 1;
+				} else {
+					Ay = Ay - 1;
+				}
+			}
+		}
+		//if above
+		else if (Xy > Ay) {
+			steps = steps + 1;
+			Ax = Ax - 1;
+			Ay = Ay - 1;
+		}
+		//if below
+		else if (Xy < Ay) {
+			steps = steps + 1;
+			Ax = Ax - 1;
+			Ay = Ay + 1;
+		}
+	}
+	let status = [steps, Ax, Ay];
+	console.log(status);
+	return status;
+}
+
+//input validation before invoking the move function
 function leastNumSteps(Ax, Ay, Xx, Xy) {
 	//check if inputs are numbers
 	if (
@@ -41,9 +136,6 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		return `invalid input: outside of grid`;
 	}
 
-	//initial values
-	let steps = 0;
-
 	const grid = [
 		[11, 21, 31, 41, 51, 61, 71, 81],
 		[12, 22, 32, 42, 52, 62, 72, 82],
@@ -57,55 +149,18 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 	console.log(`from A(${Ax},${Ay}) to X(${Xx},${Xy})`);
 	console.log(`grid: from ${startPoint} to ${endPoint}`);
 
-	//========================
-	//main logic: calculate least steps from startPoint to endPoint
-	//========================
+	let steps = 0;
 
-	//if X and A are on the same y-axis
-	if (Xx === Ax) {
-		//if X and A are the same
-		if (Xy === Ay) {
-			//do nothing
-		}
-		//if X is directly below A
-		else if (Xy > Ay) {
-			for (let i = Ay - 1; i < Xy - 1; i++) {
-				steps = steps + 1;
-			}
-		}
-		//if X is directly above A
-		else if (Xy < Ay) {
-			if (Ay - Xy === 1) {
-				steps = 3;
-			} else {
-				steps = 2;
-			}
-		}
-		//destination reached!
-		Ay = Xy;
+	while (Ax !== Xx) {
+		let arr = move(steps, Ax, Ay, Xx, Xy);
+		[steps, Ax, Ay] = arr;
 	}
-
-	//if X is to the right of A
-	if (Xx > Ax) {
-		//if same y-axis
-		if (Xy === Ay) {
-			if (Xx - Ax === 1) {
-			}
-		}
-		//if above
-		//if below
-	}
-
-	//if X is to the left of A
-	//if same y-axis
-	//if above
-	//if below
 
 	return `${steps} steps`;
 }
 
 //from testing
-console.log(leastNumSteps(4, 2, 4, 1));
+console.log(leastNumSteps(1, 1, 8, 3));
 
 //validation test
 // console.log(leastNumSteps(2, 2, 9, 4)); //input is outside of the grid
