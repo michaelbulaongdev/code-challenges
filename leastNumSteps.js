@@ -96,6 +96,11 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		//if below
 	}
 
+	//if X is to the left of A
+	//if same y-axis
+	//if above
+	//if below
+
 	return `${steps} steps`;
 }
 
