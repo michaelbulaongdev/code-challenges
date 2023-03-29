@@ -5,8 +5,6 @@
 //range of Ax and Xx: 1-8
 //range of Ay and Xy: 1-3
 
-//check position of A relative to X
-//update steps counter and position of A
 function move(steps, Ax, Ay, Xx, Xy) {
 	//if X and A are on the same y-axis
 	if (Xx === Ax) {
@@ -28,7 +26,6 @@ function move(steps, Ax, Ay, Xx, Xy) {
 				steps = steps + 2;
 			}
 		}
-		//destination reached
 		Ax = Xx;
 		Ay = Xy;
 	}
@@ -39,7 +36,7 @@ function move(steps, Ax, Ay, Xx, Xy) {
 		if (Xy === Ay) {
 			if (Xx - Ax === 1) {
 				steps = steps + 2;
-				Ax = Xx; //destination reached
+				Ax = Xx;
 			} else {
 				steps = steps + 1;
 				Ax = Ax + 1;
@@ -51,13 +48,13 @@ function move(steps, Ax, Ay, Xx, Xy) {
 			}
 		}
 		//if above
-		else if (Xy > Ay) {
+		else if (Xy < Ay) {
 			steps = steps + 1;
 			Ax = Ax + 1;
 			Ay = Ay - 1;
 		}
 		//if below
-		else if (Xy < Ay) {
+		else if (Xy > Ay) {
 			steps = steps + 1;
 			Ax = Ax + 1;
 			Ay = Ay + 1;
@@ -70,7 +67,7 @@ function move(steps, Ax, Ay, Xx, Xy) {
 		if (Xy === Ay) {
 			if (Ax - Xx === 1) {
 				steps = steps + 2;
-				Ax = Xx; //destination reached
+				Ax = Xx;
 			} else {
 				steps = steps + 1;
 				Ax = Ax - 1;
@@ -82,21 +79,22 @@ function move(steps, Ax, Ay, Xx, Xy) {
 			}
 		}
 		//if above
-		else if (Xy > Ay) {
+		else if (Xy < Ay) {
 			steps = steps + 1;
 			Ax = Ax - 1;
 			Ay = Ay - 1;
 		}
 		//if below
-		else if (Xy < Ay) {
+		else if (Xy > Ay) {
 			steps = steps + 1;
 			Ax = Ax - 1;
 			Ay = Ay + 1;
 		}
 	}
-	let status = [steps, Ax, Ay];
-	console.log(status);
-	return status;
+
+	let updatedPosition = [steps, Ax, Ay];
+	console.log(updatedPosition);
+	return updatedPosition;
 }
 
 //input validation before invoking the move function
@@ -108,7 +106,8 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		typeof Xx !== 'number' ||
 		typeof Xy !== 'number'
 	) {
-		return `invalid input: must be number type`;
+		return `invalid input: must be number type;
+expected input format: (Ax, Ay, Xx, Xy)`;
 	}
 
 	//check if inputs are whole numbers
@@ -118,7 +117,8 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		Xx - Math.floor(Xx) !== 0 ||
 		Xy - Math.floor(Xy) !== 0
 	) {
-		return `invalid input: must be whole numbers`;
+		return `invalid input: must be whole numbers
+expected input format: (Ax, Ay, Xx, Xy)`;
 	}
 
 	//check if inputs are inside the grid
@@ -133,7 +133,8 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		}
 	}
 	if (!insideGrid) {
-		return `invalid input: outside of grid`;
+		return `invalid input: outside of grid
+expected input format: (Ax, Ay, Xx, Xy)`;
 	}
 
 	const grid = [
@@ -142,7 +143,6 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 		[13, 23, 33, 43, 53, 63, 73, 83],
 	];
 
-	//convert coordinates to grid[rowIndex][colIndex]
 	const startPoint = grid[Ay - 1][Ax - 1];
 	const endPoint = grid[Xy - 1][Xx - 1];
 
@@ -151,17 +151,13 @@ function leastNumSteps(Ax, Ay, Xx, Xy) {
 
 	let steps = 0;
 
-	while (Ax !== Xx) {
-		let arr = move(steps, Ax, Ay, Xx, Xy);
-		[steps, Ax, Ay] = arr;
+	while (Ax !== Xx || Ay !== Xy) {
+		let positionArray = move(steps, Ax, Ay, Xx, Xy);
+		[steps, Ax, Ay] = positionArray;
 	}
 
-	return `${steps} steps`;
+	return `summary: ${steps} steps`;
 }
 
-//from testing
-console.log(leastNumSteps(1, 1, 8, 3));
-
-//validation test
-// console.log(leastNumSteps(2, 2, 9, 4)); //input is outside of the grid
-// console.log(leastNumSteps(2, 2, "7", 4)); //invalid input
+//for testing
+console.log(leastNumSteps(8, 2, 3.2, 1));
