@@ -35,8 +35,13 @@ function move(steps, Ax, Ay, Xx, Xy) {
 		//if same y-axis
 		if (Xy === Ay) {
 			if (Xx - Ax === 1) {
-				steps = steps + 2;
-				Ax = Xx;
+				steps = steps + 1;
+				if (Ay === 3) {
+					Ax = Ax + 1;
+					Ay = Ay - 1;
+				} else {
+					Ay = Ay + 1; //special down move
+				}
 			} else {
 				steps = steps + 1;
 				Ax = Ax + 1;
@@ -66,8 +71,13 @@ function move(steps, Ax, Ay, Xx, Xy) {
 		//if same y-axis
 		if (Xy === Ay) {
 			if (Ax - Xx === 1) {
-				steps = steps + 2;
-				Ax = Xx;
+				steps = steps + 1;
+				if (Ay === 3) {
+					Ax = Ax - 1;
+					Ay = Ay - 1;
+				} else {
+					Ay = Ay + 1; //special down move
+				}
 			} else {
 				steps = steps + 1;
 				Ax = Ax - 1;
@@ -160,4 +170,4 @@ expected input format: (Ax, Ay, Xx, Xy)`;
 }
 
 //for testing
-console.log(leastNumSteps(8, 2, 3.2, 1));
+console.log(leastNumSteps(8, 2, 4, 1));
